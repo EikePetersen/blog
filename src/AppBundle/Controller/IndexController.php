@@ -3,10 +3,15 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends Controller {
-    public function indexAction($name)
+
+    /**
+     * @Route("/lucky/number")
+     */
+    public function indexAction()
     {
-        return $this->render('index.html.twig', array('name' => $name));
+        return $this->render('default/index.html.twig', array());
     }
 }
