@@ -16,8 +16,7 @@ class IndexController extends Controller {
         $assets = array();
 
         // Fill the asset array
-        $assets[] = new BlogAsset("css", "main.css");
-
+        $assets[] = new BlogAsset("css", "style.css");
 
         return $this->render('default/index.html.twig', array(
             "assets" => $assets

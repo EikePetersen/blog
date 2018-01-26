@@ -8,7 +8,7 @@
         private $url;
 
         public function __construct($type, $url) {
-            $this->typ = $type;
+            $this->type = $type;
             $this->url = $url;
         }
 

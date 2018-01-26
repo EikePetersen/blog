@@ -1,17 +1,16 @@
 <html>
     <head>
         <title>Home</title>
-    </head>
-    <body>
         {% block assets %}
             {% for asset in assets %}
                 {% if asset.getType() == "css" %}
-                    <link rel="stylesheet" href="{{ asset.getUrl() }}" >
-                {% elseif asset.getType() == "js" %}
-                    <script src="{{ asset.getUrl() }} "></script>
+                    <link rel="stylesheet" href="bundles/app/{{ asset.getType() }}/{{ asset.getUrl() }}" >
+                    {% elseif asset.getType() == "js" %}
+                    <script src="{{ asset.getType() }}/{{ asset.getUrl() }} "></script>
                 {% endif %}
             {% endfor %}
         {% endblock %}
-
+    </head>
+    <body>
     </body>
 </html>
