@@ -4,20 +4,20 @@
 
     class BlogAsset {
 
-        private $typ;
+        private $type;
         private $url;
 
-        public function BlogAsset($typ, $url) {
-            $this->typ = $typ;
+        public function __construct($type, $url) {
+            $this->typ = $type;
             $this->url = $url;
         }
 
         /**
          * @return String
          */
-        public function getTyp()
+        public function getType()
         {
-            return $this->typ;
+            return $this->type;
         }
 
         /**
