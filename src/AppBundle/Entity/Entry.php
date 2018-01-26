@@ -1,8 +1,8 @@
 <?php
-namespace AppBundle\Classes;
+namespace AppBundle\Entity;
 
 
-class BlogEntry {
+class Entry {
 
     public function __construct() {
 

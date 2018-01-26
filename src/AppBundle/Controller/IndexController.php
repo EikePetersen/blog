@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Classes\BlogAsset;
+use AppBundle\Entity\BlogAsset;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,11 +12,9 @@ class IndexController extends Controller {
      * @Route("")
      */
     public function indexAction() {
-        // The array that holds the type and the url of the asset
-        $assets = array();
 
-        // Fill the asset array
-        $assets[] = new BlogAsset("css", "style.css");
+        $repository = $this->getDoctrine()->getRepository(BlogAsset::class);
+        $assets = $repository->findAll();
 
         return $this->render('default/index.html.twig', array(
             "assets" => $assets,
