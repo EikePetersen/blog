@@ -1,22 +1,20 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>{% block title %}Blog!{% endblock %}</title>
-    {% block assets %}{% for asset in assets %}
-        {% if asset.getType() == "css" %}
-            <link rel="stylesheet" href="bundles/app/{{ asset.getType() }}/{{ asset.getUrl() }}">
-            {% elseif asset.getType() == "js" %}
-            <script src="{{ asset.getType() }}/{{ asset.getUrl() }} "></script>
-        {% endif %}
-    {% endfor %}{% endblock %}
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Blog</title>
+        {% block assets %}
+            {% for asset in assets %}
+                {% if asset.getType() == "css" %}
+                    <link rel="stylesheet" href="bundles/app/{{ asset.getType() }}/{{ asset.getUrl() }}">
+                    {% elseif asset.getType() == "js" %}
+                    <script src="{{ asset.getType() }}/{{ asset.getUrl() }} "></script>
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-</head>
-<body>
-{% block head %} <h1>Herzlich Wilkommen</h1>{% endblock %}
-{% block navigation %}{% endblock %}
-{% block content %}<p>Lorem Ipsum</p>{% endblock %}
-{% block javascripts %}{% endblock %}
-</body>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    </head>
+    <body>
+        {% block nav %}{% include "default/nav.html.twig" %}{% endblock %}
+    </body>
 </html>
