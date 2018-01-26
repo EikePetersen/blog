@@ -19,7 +19,7 @@ class IndexController extends Controller {
         $assets[] = new BlogAsset("css", "style.css");
 
         return $this->render('default/index.html.twig', array(
-            "assets" => $assets
+            "assets" => $assets,
         ));
     }
 }
