@@ -18,7 +18,7 @@ class EntryController extends Controller {
         // Fill the asset array
         $assets[] = new BlogAsset("css", "style.css");
 
-        return $this->render('default/index.html.twig', array(
+        return $this->render('default/blogentry.html.twig', array(
             "assets" => $assets,
         ));
     }
