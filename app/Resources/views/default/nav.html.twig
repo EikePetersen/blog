@@ -4,13 +4,13 @@
         <img src="{{ asset_url }}" alt="" />
     {% endimage %}
     <ul>
-        <li><a>Home</a></li>
-        <li><a>Beitr&auml;ge</a></li>
+        <li><a href="{{ path('home') }}">Home</a></li>
+        <li><a href="{{ path('article') }}">Beitr&auml;ge</a></li>
         <li><a>Sonstiges</a> <ul>
                 <li><a  href="{{ path('page', {'type': "impressum"}) }}">Impressum</a></li>
                 <li><a  href="{{ path('page', {'type': "about"}) }}">&Uuml;ber uns</a></li>
             </ul></li>
-        <li><a>Login</a></li>
-        <li><a>Logout</a></li>
+        <li><a href="{{ path('login') }}">Login</a></li>
+        <li><a href="{{ path('logout') }}">Logout</a></li>
     </ul>
 </nav>

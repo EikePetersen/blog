@@ -32,7 +32,7 @@ class EntryViewController extends Controller {
 
 
     /**
-     * @Route("article/")
+     * @Route("article/", name="article")
      */
     public function viewEntries() {
 
