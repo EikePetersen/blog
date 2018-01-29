@@ -43,11 +43,22 @@ class EntryViewController extends Controller {
     }
 
     /**
-     * @Route("{language}/{title}-{id}.html")
+     * @Route("{language}/{url}.html")
      * @param String $afterpart
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewEntry($id, $title) {
+    public function viewEntry($url) {
+        $title = "";
+        $url = explode("-", $url);
+
+        $id = $url[count($url) - 1];
+
+        for($i = 0; $i < count($url) - 1; $i++) {
+            $title .= $url[$i] . " ";
+        }
+
+        dump($title);
+
         return $this->render('default/viewEntry.html.twig', array(
             "view"=>true,
             "entry"=>$this->getEntry($id, $title),
