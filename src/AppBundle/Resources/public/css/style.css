@@ -93,11 +93,13 @@ nav ul li:hover ul {
     margin: 1% 5%;
 }
 
-.previewEntry {
+.entryPreview {
     padding: 2% 5% 2% 5%;
     width: 90%;
-    height: 40px;
+    height: 50px;
     box-shadow: 1px 1px 1px 1px #ABABAB;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .left {
@@ -119,10 +121,16 @@ nav ul li:hover ul {
     font-size: 15px;
 }
 
+.contentText {
+    font-size: 16px;
+    height: 100%;
+    overflow-y: auto;
+}
+
 .entry {
-    width: 90%;
+    width: 100%;
     padding: 2% 5% 2% 5%;
-    height: 70%;
+    height: 75%;
     box-shadow: 1px 1px 1px 1px #ABABAB;
 }
 

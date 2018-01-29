@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EntryViewController extends Controller {
+    private $error;
 
     public function getEntries() {
 
@@ -27,7 +28,8 @@ class EntryViewController extends Controller {
             'title' => $title,
         ]);
 
-        return $entry;
+        if($entry) { $this->error = 0; return $entry; }
+        else {$this->error = 1; return ""; }
     }
 
 
@@ -37,6 +39,7 @@ class EntryViewController extends Controller {
     public function viewEntries() {
 
         return $this->render('default/viewEntry.html.twig', array(
+            "error"=>0,
             "view"=>false,
             "entries"=>$this->getEntries(),
         ));
@@ -44,7 +47,7 @@ class EntryViewController extends Controller {
 
     /**
      * @Route("{language}/{url}.html")
-     * @param String $afterpart
+     * @param String $url
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewEntry($url) {
@@ -54,10 +57,13 @@ class EntryViewController extends Controller {
         $id = $url[count($url) - 1];
 
         for($i = 0; $i < count($url) - 1; $i++) {
-            $title .= $url[$i] . " ";
+            if(!($i == count($url)- 2))
+                $title .= $url[$i] . " ";
+            else $title .= $url[$i];
         }
 
         return $this->render('default/viewEntry.html.twig', array(
+            "error"=>$this->error,
             "view"=>true,
             "entry"=>$this->getEntry($id, $title),
         ));
