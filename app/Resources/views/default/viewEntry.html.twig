@@ -22,7 +22,7 @@
                 {# Lists all entries #}
 
                 {% for entry in entries %}
-                    <a href="de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html"><div class="entry entry-{{ entry.getId() }}">
+                    <a href="de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html"><div class="view entry-{{ entry.getId() }}">
                         <span class="left">
                             <span class="title">{{ entry.getTitle() }}</span><br>
                             <span class="preview">{{ entry.getPreview() }}</span>
@@ -36,7 +36,7 @@
             {% else %}
                 <div class="view entry-{{ entry.getId() }}">
                     <span class="left">
-                        <span class="title">{{ entry.getTitle() }}</span><br>
+                        <span class="title">{{ entry.getTitle() }}</span><br><br>
                         <span class="content">{{ entry.getContent() }}</span>
                     </span>
                     <span class="right">

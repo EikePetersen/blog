@@ -118,14 +118,17 @@ nav ul li:hover ul {
     box-shadow: 1px 1px 1px 1px #ABABAB;
 }
 
-.entry {
-    overflow: auto;
-}
-
 .creator {
     font-size: 20px;
 }
 
 .date {
     font-size: 12px;
+}
+
+.view {
+    width: 90%;
+    padding: 2% 5% 2% 5%;
+    height: 80%;
+    box-shadow: 1px 1px 1px 1px #ABABAB;
 }
