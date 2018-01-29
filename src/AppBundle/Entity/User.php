@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -19,28 +19,14 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
+    public function __construct()
+    {
+        parent::__construct();
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="isAdmin", type="string", length=255)
-     */
-    private $isAdmin;
+    }
 
     public function getId()
     {
@@ -49,12 +35,12 @@ class User
 
     public function setName($name)
     {
-        $this->name = $name;
+        $this->username = $name;
     }
 
     public function getName()
     {
-        return $this->name;
+        return $this->username;
     }
 
     public function setPassword($password)
@@ -67,20 +53,7 @@ class User
         return $this->password;
     }
 
-    public function setPermissionLevel($permissionLevel)
-    {
-        $this->permissionLevel = $permissionLevel;
-    }
 
-    /**
-     * Get permissionLevel
-     *
-     * @return string
-     */
-    public function getAdmin()
-    {
-        return $this->isAdmin;
-    }
     /**
      * Get All
      *
@@ -89,10 +62,10 @@ class User
     public function getAll()
     {
         return array(
-            "id"=>$this->id,
-            "name"=>$this->name,
-            "password"=>$this->password,
-            "isAdmin"=>$this->isAdmin
+            "id" => $this->id,
+            "name" => $this->username,
+            "password" => $this->password,
+
         );
     }
 }
