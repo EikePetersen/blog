@@ -1,0 +1,25 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Blog</title>
+    {% block assets %}
+        {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% block javascripts %}
+        {% javascripts '@AppBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+{% block nav %}{% include "default/nav.html.twig" %}{% endblock %}
+<div class="content">
+    {% block admin %}
+    {% endblock %}
+</div>
+</body>
+</html>
