@@ -54,6 +54,7 @@ class AdminController extends Controller {
                 "headline"=>"Beiträge",
                 "text"=>"Hier kannst du alle Beiträge bearb",
             ),
+            "entries"=>$this->getEntries(),
         ));
     }
 
