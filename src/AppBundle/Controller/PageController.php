@@ -14,9 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class PageController extends Controller
 {
     /**
-     * Matches /page/*
+     * Matches /*
      *
-     * @Route("/page/{type}", name="page")
+     * @Route("/{type}", name="page")
      */
     public function pageAction($type)
     {
