@@ -16,7 +16,7 @@ class PageController extends Controller
     /**
      * Matches /*
      *
-     * @Route("/{type}", name="page")
+     * @Route("page/{type}", name="page")
      */
     public function pageAction($type)
     {
