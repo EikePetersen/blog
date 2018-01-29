@@ -38,81 +38,38 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="permissionLevel", type="string", length=255)
+     * @ORM\Column(name="isAdmin", type="string", length=255)
      */
-    private $permissionLevel;
+    private $isAdmin;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
-     */
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
     public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
     }
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    /**
-     * Set permissionLevel
-     *
-     * @param string $permissionLevel
-     *
-     * @return User
-     */
     public function setPermissionLevel($permissionLevel)
     {
         $this->permissionLevel = $permissionLevel;
-
-        return $this;
     }
 
     /**
@@ -120,9 +77,9 @@ class User
      *
      * @return string
      */
-    public function getPermissionLevel()
+    public function getAdmin()
     {
-        return $this->permissionLevel;
+        return $this->isAdmin;
     }
     /**
      * Get All
@@ -132,10 +89,10 @@ class User
     public function getAll()
     {
         return array(
-            id=>$this->id,
-            name=>$this->name,
-            password=>$this->password,
-            permissionLevel=>$this->permissionLevel
+            "id"=>$this->id,
+            "name"=>$this->name,
+            "password"=>$this->password,
+            "isAdmin"=>$this->isAdmin
         );
     }
 }

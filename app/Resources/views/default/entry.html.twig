@@ -1,1 +1,5 @@
-{# Lists all entries ##}
+{# Lists all entries #}
+
+{% for entry in entries %}
+    {{ entry.getTitle() }}
+{% endfor %}
