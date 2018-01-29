@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Entry;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -113,6 +114,7 @@ class AdminController extends Controller {
         ));
     }
 
+    // TODO: NEW ENTRY;
     /**
      * @Route("/admin/entry/new/{id}", name="new")
      */
@@ -130,15 +132,15 @@ class AdminController extends Controller {
      * @Route("/admin/entry/delete/{id}", name="delete")
      */
     public function deleteEntry($id) {
-        return $this->render('default/delete.html.twig', array(
-            "content"=>array(
-                "headline"=>"Beitrag löschen",
-                "text"=>"",
-                "entries"=>null,
-            ),
-        ));
+        $entry = $this->getEntry($id);
+        $repository = $this->getDoctrine()->getManager();
+        $repository->remove($entry);
+        $repository->flush();
+
+        return new Response("Deleted successfully. <a href='/admin/entry'>Back</a>");
     }
 
+    // TODO: EDIT PAGES;
     /**
      * @Route("/admin/pages/edit/{title}", name="editPages")
      */

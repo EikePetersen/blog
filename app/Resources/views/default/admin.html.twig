@@ -37,7 +37,7 @@
                             <td>{{ entry.getAuthor() }}</td>
                             <td>{{ entry.getDate() }}</td>
                             <td>
-                                <a class="btn btn-show" href="delete/{{ entry.getId() }}"><i class="fas fa-trash"></i> Delete</a>
+                                <a class="btn btn-show" onclick="if(confirm('Bist du dir sicher?')) { return true; } else { return false; }" href="delete/{{ entry.getId() }}"><i class="fas fa-trash"></i> Delete</a>
                                 <a class="btn btn-edit" href="edit/{{ entry.getId() }}"><i class="fas fa-edit"></i> Edit</a>
                             </td>
                         </tr>
