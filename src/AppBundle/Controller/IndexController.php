@@ -12,12 +12,6 @@ class IndexController extends Controller {
      * @Route("")
      */
     public function indexAction() {
-
-        $repository = $this->getDoctrine()->getRepository(BlogAsset::class);
-        $assets = $repository->findAll();
-
-        return $this->render('default/index.html.twig', array(
-            "assets" => $assets,
-        ));
+        return $this->render('default/index.html.twig', array());
     }
 }

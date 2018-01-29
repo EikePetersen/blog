@@ -3,13 +3,14 @@
         <meta charset="UTF-8"/>
         <title>Blog</title>
         {% block assets %}
-            {% for asset in assets %}
-                {% if asset.getType() == "css" %}
-                    <link rel="stylesheet" href="bundles/app/{{ asset.getType() }}/{{ asset.getUrl() }}">
-                    {% elseif asset.getType() == "js" %}
-                    <script src="{{ asset.getType() }}/{{ asset.getUrl() }} "></script>
-                {% endif %}
-            {% endfor %}
+            {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            {% block javascripts %}
+                {% javascripts '@AppBundle/Resources/public/js/*' %}
+                    <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% endblock %}
         {% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
