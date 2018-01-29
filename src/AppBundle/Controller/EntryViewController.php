@@ -57,8 +57,6 @@ class EntryViewController extends Controller {
             $title .= $url[$i] . " ";
         }
 
-        dump($title);
-
         return $this->render('default/viewEntry.html.twig', array(
             "view"=>true,
             "entry"=>$this->getEntry($id, $title),
