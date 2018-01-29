@@ -130,7 +130,7 @@ class AdminController extends Controller {
      * @Route("/admin/entry/delete/{id}", name="delete")
      */
     public function deleteEntry($id) {
-        return $this->render('default/admin.html.twig', array(
+        return $this->render('default/delete.html.twig', array(
             "content"=>array(
                 "headline"=>"Beitrag löschen",
                 "text"=>"",
