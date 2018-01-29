@@ -9,6 +9,7 @@
     {% block javascripts %}
         {% javascripts '@AppBundle/Resources/public/js/*' %}
         <script src="{{ asset_url }}"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         {% endjavascripts %}
     {% endblock %}
     {% endblock %}
@@ -21,6 +22,31 @@
     {% block admin %}
         <h1>{{ content.headline | convert_encoding('UTF-8', 'ISO-8859-1') }}</h1>
         <p>{{ content.text | convert_encoding('UTF-8', 'ISO-8859-1') }}</p>
+        {% if entries is defined %}
+            {% block entries %}
+                <table class="tbl">
+                    <tr>
+                        <td class="tbl-title">Title</td>
+                        <td class="tbl-author"><i class="fas fa-user"></i> Autor</td>
+                        <td class="tbl-date"><i class="far fa-calendar-alt"></i> Date</td>
+                        <td class="tbl-actions"><i class="fas fa-cogs"></i> Actions</td>
+                    </tr>
+                    {% for entry in entries %}
+                        <tr>
+                            <td>{{ entry.getTitle() }}</td>
+                            <td>{{ entry.getAuthor() }}</td>
+                            <td>{{ entry.getDate() }}</td>
+                            <td>
+                                <a class="btn btn-show" href="/de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html">Show</a>
+                                <a class="btn btn-edit" href="edit/{{ entry.getId() }}"><i class="fas fa-edit"></i> Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endblock %}
+        {% else %}
+            Keine Eintr&auml;ge vorhanden
+        {% endif %}
     {% endblock %}
 </div>
 </body>
