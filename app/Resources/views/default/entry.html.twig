@@ -1,5 +1,14 @@
 {# Lists all entries #}
 
 {% for entry in entries %}
-    {{ entry.getTitle() }}
+    <a href="de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html"><div class="entry entry-{{ entry.getId() }}">
+        <span class="left">
+            <span class="title">{{ entry.getTitle() }}</span><br>
+            <span class="preview">{{ entry.getPreview() }}</span>
+        </span>
+        <span class="right">
+            <span class="author">{{ entry.getAuthor() }}</span><br>
+            <span class="date">{{ entry.getDate() }}</span>
+        </span>
+        </div></a>
 {% endfor %}

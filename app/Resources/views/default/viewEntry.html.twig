@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Blog</title>
+        {% block assets %}
+            {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% block javascripts %}
+            {% javascripts '@AppBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+        {% endblock %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    </head>
+    <body>
+        {% block nav %}{% include "default/nav.html.twig" %}{% endblock %}
+        <div class="content">
+            {% if view == false %}
+                {# Lists all entries #}
+
+                {% for entry in entries %}
+                    <a href="de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html"><div class="entry entry-{{ entry.getId() }}">
+                        <span class="left">
+                            <span class="title">{{ entry.getTitle() }}</span><br>
+                            <span class="preview">{{ entry.getPreview() }}</span>
+                        </span>
+                        <span class="right">
+                            <span class="author">{{ entry.getAuthor() }}</span><br>
+                            <span class="date">{{ entry.getDate() }}</span>
+                        </span>
+                        </div></a>
+                {% endfor %}
+            {% else %}
+                <div class="view entry-{{ entry.getId() }}">
+                    <span class="left">
+                        <span class="title">{{ entry.getTitle() }}</span><br>
+                        <span class="content">{{ entry.getContent() }}</span>
+                    </span>
+                    <span class="right">
+                        <span class="author">{{ entry.getAuthor() }}</span><br>
+                        <span class="date">{{ entry.getDate() }}</span>
+                    </span>
+                </div></a>
+            {% endif %}
+        </div>
+    </body>
+</html>

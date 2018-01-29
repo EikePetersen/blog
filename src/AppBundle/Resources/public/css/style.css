@@ -91,3 +91,41 @@ nav ul li:hover ul {
     padding: 2.5%;
     margin: 1% 5%;
 }
+
+.left {
+    float: left;
+    width: 80%;
+}
+
+.right {
+    text-align: right;
+    float: right;
+    width: 20%;
+}
+
+.title {
+    font-size: 25px;
+}
+
+.preview {
+    font-size: 15px;
+}
+
+.entry {
+    padding: 2% 5% 2% 5%;
+    width: 90%;
+    height: 50px;
+    box-shadow: 1px 1px 1px 1px #ABABAB;
+}
+
+.entry {
+    overflow: auto;
+}
+
+.creator {
+    font-size: 20px;
+}
+
+.date {
+    font-size: 12px;
+}
