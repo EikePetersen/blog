@@ -10,7 +10,9 @@
                 <li><a  href="{{ path('page', {'type': "impressum"}) }}">Impressum</a></li>
                 <li><a  href="{{ path('page', {'type': "about"}) }}">&Uuml;ber uns</a></li>
             </ul></li>
-
+       {#{% if isSuperAdmin() %}
+            <li><a href="{{ path('admin') }}">Admin-Bereich</a></li>
+        {% endif %}#}
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
             <li><a href="{{ path('fos_user_security_logout') }}">
@@ -19,5 +21,6 @@
         {% else %}
             <li> <a href="{{ path('fos_user_security_login') }}">Login</a></li>
         {% endif %}
+
     </ul>
 </nav>
