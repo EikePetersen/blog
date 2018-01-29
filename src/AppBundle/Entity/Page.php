@@ -93,5 +93,15 @@ class Page
     {
         return $this->content;
     }
+    /**
+     * Get pageData
+     *
+     * @return array
+     */
+    public function getPageData()
+    {
+        return array("header"=>$this->name,"content"=>$this->content);
+    }
+
 }
 

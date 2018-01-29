@@ -7,9 +7,9 @@
  */
 
 namespace AppBundle\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Page;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PageController extends Controller
 {
@@ -20,21 +20,29 @@ class PageController extends Controller
      */
     public function pageAction($type)
     {
-        switch ($type)
-        {
+        switch ($type) {
             case "about":
-                $header="Über uns";
-                $content="Die von ihnen aufgerufene Seite existiert nicht!";
+                $id = 1;
                 break;
             case "impressum":
-                $header="Impressum";
-                $content="Die von ihnen aufgerufene Seite existiert nicht!";
+                $id = 2;
                 break;
             default:
-                $header="Error 404";
-                $content="Die von ihnen aufgerufene Seite existiert nicht!";
-                
+                break;
         }
-        return $this->render('default/page.html.twig', array("header"=>$header,"content"=>$content));
+
+        $page = $this->getDoctrine()
+            ->getRepository(Page::class)
+            ->find($id);
+        if (!$page) {
+            $header = "Error 404";
+            $content = "Die von ihnen gesuchte Seite existiert nicht";
+
+        } else {
+            $header = $page->getName();
+            $content = $page->getContent();
+        }
+
+        return $this->render('default/page.html.twig', array("header" => $header, "content" => $content));
     }
 }
