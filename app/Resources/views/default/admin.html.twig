@@ -25,8 +25,7 @@
         <p>{{ content.text | convert_encoding('UTF-8', 'ISO-8859-1') }}</p>
         {% if entries is defined %}
             {% block entries %}
-                {{ path(app.request.attributes.get('_route'),
-                app.request.attributes.get('_route_params')) }}
+
                 <table class="tbl">
                     <tr>
                         <td class="tbl-title">Title</td>
