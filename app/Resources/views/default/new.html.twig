@@ -1,9 +1,39 @@
 {% extends "base.html.twig" %}
+ {% block css %}
+
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
+           rel="stylesheet" type="text/css"/>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_editor.pkgd.min.css"
+           rel="stylesheet" type="text/css"/>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_style.min.css"
+           rel="stylesheet" type="text/css"/>
+
+ {% endblock %}
+
 {% block nav %}
     {% include "default/navAdmin.html.twig" %}
 {% endblock %}
 {% block content %}
-{{ form_start(content.form) }}
-{{ form_widget(content.form) }}
-{{ form_end(content.form) }}
+    {{ form_start(content.form) }}
+    {{ form_widget(content.form) }}
+    {{ form_end(content.form) }}
+    {% javascripts '@AppBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
+        <!-- Include Editor JS files. -->
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/js/froala_editor.pkgd.min.js"></script>
+        <script>$(function () {
+                $('textarea').froalaEditor()
+            });</script>
+    {% endjavascripts %}
 {% endblock %}

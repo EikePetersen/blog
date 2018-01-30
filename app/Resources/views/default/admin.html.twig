@@ -5,10 +5,10 @@
     {% block admin %}
         <h1>{{ content.headline | convert_encoding('UTF-8', 'ISO-8859-1') }}</h1>
         <p>{{ content.text | convert_encoding('UTF-8', 'ISO-8859-1') }}</p><br>
-        <p><a href="{{ path("new") }}">Neuen Beitrag erstellen</a></p>
+
         {% if entries is defined %}
             {% block entries %}
-
+                <p><a href="{{ path("new") }}">Neuen Beitrag erstellen</a></p>
                 <table class="tbl">
                     <tr>
                         <td class="tbl-title">Title</td>
