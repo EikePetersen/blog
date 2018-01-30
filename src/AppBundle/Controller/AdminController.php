@@ -89,9 +89,9 @@ class AdminController extends Controller {
             $entry->setAuthor($form->getData()->getAuthor());
             $entry->setContent($form->getData()->getContent());
 
-            $preview = preg_replace('%<a href=.*?>(.*)?</a>%', "$1", $form->getData()->getContent());
-            $preview = preg_replace('%<p>(.*)?</p>%', "$1", $preview);
-            if(strlen($preview) > 125) $preview = str_replace($preview, 121) . " ...";
+            $preview = $entry->getContent();
+            $preview = strip_tags($preview);
+            if(strlen($preview) > 125) $preview = str_split($preview, 121)[0] . " ...";
             else $preview = $preview;
 
             $entry->setPreview($preview);
@@ -99,7 +99,7 @@ class AdminController extends Controller {
 
             // ... perform some action, such as saving the task to the database
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entry);
+            $em->merge($entry);
             $em->flush();
 
             return $this->redirectToRoute('admin');
@@ -114,16 +114,54 @@ class AdminController extends Controller {
         ));
     }
 
-    // TODO: NEW ENTRY;
     /**
-     * @Route("/admin/entry/new/{id}", name="new")
+     * @Route("/admin/entry/new", name="new")
      */
-    public function newEntry($id) {
-        return $this->render('default/admin.html.twig', array(
+    public function newEntry(Request $request) {
+
+        $entry = new Entry();
+
+        $form = $this->createFormBuilder($entry)
+            ->add('title', TextType::class, array('label' => "Titel: ", "required" => true))
+            ->add('author', TextType::class, array('label' => "Autor: ", "required" => true))
+            ->add('content', TextareaType::class, array('label' => "Inhalt: ", "required" => true))
+            ->add('save', SubmitType::class, array('label' => 'Bearbeiten'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entry->setTitle($form->getData()->getTitle());
+            $entry->setAuthor($form->getData()->getAuthor());
+            $entry->setContent($form->getData()->getContent());
+
+            $preview = $entry->getContent();
+            $preview = strip_tags($preview);
+            if(strlen($preview) > 125) $preview = str_split($preview, 121)[0] . " ...";
+            else $preview = $preview;
+
+            $entry->setPreview($preview);
+
+            $day = date("d.m.Y");
+            $time = date("H:i");
+
+            $date = $day . " um " . $time . " Uhr";
+            $entry->setDate($date);
+
+            // ... perform some action, such as saving the task to the database
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entry);
+            $em->flush();
+
+            return $this->redirectToRoute('admin');
+        }
+
+
+        return $this->render('default/new.html.twig', array(
             "content"=>array(
                 "headline"=>"Beitrag bearbeiten",
                 "text"=>"",
-                "entries"=>$this->getEntries(),
+                "form"=>$form->createView(),
             ),
         ));
     }
@@ -140,7 +178,6 @@ class AdminController extends Controller {
         return new Response("Deleted successfully. <a href='/admin/entry'>Back</a>");
     }
 
-    // TODO: EDIT PAGES;
     /**
      * @Route("/admin/pages/edit/{title}", name="editPages")
      */

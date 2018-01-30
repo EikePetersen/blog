@@ -42,7 +42,7 @@
                     <div class="entry entry-{{ entry.getId() }}">
                         <span class="left">
                             <span class="title">{{ entry.getTitle() }}</span><br><br>
-                            <span class="contentText">{{ entry.getContent() }}</span>
+                            <span class="contentText">{{ entry.getContent()|raw }}</span>
                         </span>
                         <span class="right">
                             <span class="author">{{ entry.getAuthor() }}</span><br>

@@ -4,7 +4,7 @@
     <a href="de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html"><div class="entryPreview entry-{{ entry.getId() }}">
         <span class="left">
             <span class="title">{{ entry.getTitle() }}</span><br>
-            <span class="preview">{{ entry.getPreview() }}</span>
+            <span class="preview">{{ entry.getPreview()|raw }}</span>
         </span>
         <span class="right">
             <span class="author">{{ entry.getAuthor() }}</span><br>
