@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use AppBundle\Entity\Page;
 use AppBundle\Entity\Entry;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,6 +27,14 @@ class AdminController extends Controller {
         return $entries;
     }
 
+    public function getUsers() {
+
+        $repository = $this->getDoctrine()
+            ->getRepository(User::class);
+        $entries = $repository->findAll();
+
+        return $entries;
+    }
     public function getEntry($id) {
 
         $repository = $this->getDoctrine()
@@ -181,14 +191,74 @@ class AdminController extends Controller {
     /**
      * @Route("/admin/pages/edit/{title}", name="editPages")
      */
-    public function editPages($title) {
-        return $this->render('default/admin.html.twig', array(
-            "content"=>array(
-                "headline"=>"Statische Seiten bearbeiten",
-                "text"=>"",
-                "entries"=>null,
-            ),
+    public function editPages(Request $request, $title) {
+
+        $id = 0;
+
+
+        switch($title) {
+            case "about":
+                $id = 1;
+                break;
+            case "impressum":
+                $id = 2;
+                break;
+        }
+
+        // ... perform some action, such as saving the task to the database
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->find(
+            Page::class,
+            $id
+        );
+
+        $form = $this->createFormBuilder($page)
+            ->add('name', TextType::class, array('label' => "Titel: ", "required" => true))
+            ->add('content', TextareaType::class, array('label' => "Inhalt: ", "required" => true))
+            ->add('save', SubmitType::class, array('label' => 'Bearbeiten'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $page->setName($form->getData()->getName());
+            $page->setContent($form->getData()->getContent());
+
+
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->render('default/editStatic.html.twig', array(
+            "form"=>$form->createView(),
         ));
+    }
+    /**
+     * @Route("/admin/user", name="user")
+     */
+    public function user() {
+        return $this->render('default/user.html.twig', array(
+            "users"=>$this->getUsers(),
+        ));
+    }
+    /**
+     * @Route("/admin/toggle/{user}")
+     */
+    public function toggleAdmin($user) {
+        $repository = $this->getDoctrine()
+            ->getRepository(User::class);
+        $User = $repository->findOneBy(["username"=>$user]);
+
+        if($User->isSuperAdmin()) {
+            $User->setSuperAdmin(false);
+        } else if(!$User->isSuperAdmin()) {
+            $User->setSuperAdmin(true);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->merge($User);
+        $em->flush();
+
+        return new Response("<a href='/admin/user'>Zur&uuml;ck</a>");
     }
 
 }

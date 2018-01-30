@@ -5,9 +5,8 @@
     {% endimage %}
 
     <ul>
-        <li><a href="{{ path('home') }}">Home</a></li>
         {% if app.request.get('_route') == 'admin' %}
-            <li><a href="{{ path('admin') }}" class="active">Start</a></li>
+            <li><a href="{{ path('admin') }}" class="active">Home</a></li>
         {% else %}
             <li><a href="{{ path('admin') }}">Start</a></li>
         {% endif %}
@@ -22,12 +21,13 @@
                 <li><a href="{{ path('editPages', {'title': "about"}) }}">Über uns bearbeiten</a></li>
             </ul>
         </li>
-        <li>{#<a href="{{ path('user') }}">User</a> #}</li>
+        <li><a href="{{ path('user') }}">User</a></li>
         {% if app.request.get('_route') == 'fos_user_security_logout' %}
             <li><a href="{{ path('fos_user_security_logout') }}" class="active">Logout</a></li>
         {% else %}
             <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
         {% endif %}
+        <li><a href="{{ path('home') }}">Zurück zum Blog</a></li>
     </ul>
 
 

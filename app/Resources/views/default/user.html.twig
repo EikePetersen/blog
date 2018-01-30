@@ -1,0 +1,4 @@
+<h1>User</h1>
+{% for user in users %}
+    Username: {{ user.getName() }}; Rang: {% if is_granted("ROLE_SUPER_ADMIN") %} Admin{% else %} Normaler User{% endif %};  <a href="user/toggle/{{ user.getName() }}">Rang &auml;ndern</a><br>
+{% endfor %}
