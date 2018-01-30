@@ -1,3 +1,9 @@
+{% extends "base.html.twig"%}
+{% block nav %}
+    {% include "default/navAdmin.html.twig" %}
+    {% endblock %}
+{% block content %}
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
+{% endblock %}

@@ -1,43 +1,43 @@
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Blog</title>
-        {% block assets %}
-            {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
-                <link rel="stylesheet" href="{{ asset_url }}" />
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+{% extends "base.html.twig" %}
+        {% block css %}
 
-                <!-- Include Editor style. -->
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_style.min.css" rel="stylesheet" type="text/css" />
-            {% endstylesheets %}
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
+                  rel="stylesheet" type="text/css"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_editor.pkgd.min.css"
+                  rel="stylesheet" type="text/css"/>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/css/froala_style.min.css"
+                  rel="stylesheet" type="text/css"/>
+
         {% endblock %}
 
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    </head>
-    <body>
-        {% block nav %}{% include "default/nav.html.twig" %}{% endblock %}
-        <div class="content">
-            {% block admin %}
-                <h1>{{ content.headline | convert_encoding('UTF-8', 'ISO-8859-1') }}</h1>
 
-                {{ form_start(content.form) }}
-                {{ form_widget(content.form) }}
-                {{ form_end(content.form) }}
+{% block nav %}{% include "default/navAdmin.html.twig" %}{% endblock %}
+{% block content %}
+    {% block admin %}
+        <h1>{{ content.headline | convert_encoding('UTF-8', 'ISO-8859-1') }}</h1>
 
-            {% endblock %}
-            {% javascripts '@AppBundle/Resources/public/js/*' %}
-            <script src="{{ asset_url }}"></script>
-            <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+        {{ form_start(content.form) }}
+        {{ form_widget(content.form) }}
+        {{ form_end(content.form) }}
 
-            <!-- Include Editor JS files. -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/js/froala_editor.pkgd.min.js"></script>
-            <script>$(function() { $('textarea').froalaEditor() });</script>
-            {% endjavascripts %}
-        </div>
-    </body>
-</html>
+    {% endblock %}
+    {% javascripts '@AppBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
+        <!-- Include Editor JS files. -->
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.3/js/froala_editor.pkgd.min.js"></script>
+        <script>$(function () {
+                $('textarea').froalaEditor()
+            });</script>
+    {% endjavascripts %}
+{% endblock %}

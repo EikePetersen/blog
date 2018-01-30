@@ -1,0 +1,36 @@
+FOS\UserBundle\Model\User:
+  properties:
+    username:
+      - NotBlank:
+          message: "Der Nutzername darf nicht leer sein"
+          groups: reg
+      - Length:
+          groups: reg
+          minMessage: "Dein Nutzername ist zu kurz"
+          maxMessage: "Dein Nutzername ist zu lang"
+          min: 2
+          max: 180
+    email:
+      - NotBlank:
+          groups: reg
+          message: "Die E-Mail darf nicht leer sein"
+
+
+      - Length:
+          groups: reg
+          min: 2
+          max: 180
+          minMessage: "Deine E-Mail ist zu kurz"
+          maxMessage: "Deine E-Mail ist zu lang"
+      - Email:
+          groups: reg
+          message: "Deine angebene E-Mail ist falsch"
+    plainPassword:
+      - NotBlank:
+          groups: reg
+          message: "Dein Passwort darf nicht leer sein"
+      - Length:
+          groups: reg
+          min: 2
+          max: 4096
+          minMessage: "Dein Passwort ist zu kurz"

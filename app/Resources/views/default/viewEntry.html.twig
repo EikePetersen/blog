@@ -1,59 +1,38 @@
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        {% if view == true %}
-            <title>{{ entry.getTitle() }}</title>
-        {% else %}
-            <title>Entries</title>
-        {% endif %}
-        {% block assets %}
-            {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
-        {% block javascripts %}
-            {% javascripts '@AppBundle/Resources/public/js/*' %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-        {% endblock %}
-
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    </head>
-    <body>
+{% extends "base.html.twig" %}
         {% block nav %}{% include "default/nav.html.twig" %}{% endblock %}
-        <div class="content">
-            {% if error < 1 %}
-                {% if view == false %}
-                    {# Lists all entries #}
+       {% block content %}
+           {% if error < 1 %}
+               {% if view == false %}
+                   {# Lists all entries #}
 
-                    {% for entry in entries %}
-                        <a href="/de/{{entry.getTitle()|replace({" ":"-"})}}-{{ entry.getId() }}.html"><div class="entryPreview entry-{{ entry.getId() }}">
+                   {% for entry in entries %}
+                       <a href="/de/{{ entry.getTitle()|replace({" ":"-"}) }}-{{ entry.getId() }}.html">
+                           <div class="entryPreview entry-{{ entry.getId() }}">
                             <span class="left">
                                 <span class="title">{{ entry.getTitle() }}</span><br>
                                 <span class="preview">{{ entry.getPreview() }}</span>
                             </span>
-                            <span class="right">
+                               <span class="right">
                                 <span class="author">{{ entry.getAuthor() }}</span><br>
                                 <span class="date">{{ entry.getDate() }}</span>
                             </span>
-                            </div></a>
-                    {% endfor %}
-                {% else %}
-                    <div class="entry entry-{{ entry.getId() }}">
+                           </div>
+                       </a>
+                   {% endfor %}
+               {% else %}
+                   <div class="entry entry-{{ entry.getId() }}">
                         <span class="left">
                             <span class="title">{{ entry.getTitle() }}</span><br><br>
                             <span class="contentText">{{ entry.getContent()|raw }}</span>
                         </span>
-                        <span class="right">
+                       <span class="right">
                             <span class="author">{{ entry.getAuthor() }}</span><br>
                             <span class="date">{{ entry.getDate() }}</span>
                         </span>
-                    </div></a>
-                {% endif %}
-            {% else %}
-                <h1>Fehler 404</h1>
-                <span>Seite nicht gefunden!</span>
-            {% endif %}
-        </div>
-    </body>
-</html>
+                   </div></a>
+               {% endif %}
+           {% else %}
+               <h1>Fehler 404</h1>
+               <span>Seite nicht gefunden!</span>
+           {% endif %}
+       {% endblock %}
