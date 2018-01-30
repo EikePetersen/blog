@@ -1,4 +1,29 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Blog</title>
+    {% block assets %}
+        {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% block javascripts %}
+        {% javascripts '@AppBundle/Resources/public/js/*' %}
+        <script src="{{ asset_url }}"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        {% endjavascripts %}
+    {% endblock %}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+{% block navA %}{% include "default/navAdmin.html.twig" %}{% endblock %}
+<div class="content">
+
 <h1>User</h1>
 {% for user in users %}
     Username: {{ user.getName() }}; Rang: {% if is_granted("ROLE_SUPER_ADMIN") %} Admin{% else %} Normaler User{% endif %};  <a href="user/toggle/{{ user.getName() }}">Rang &auml;ndern</a><br>
-{% endfor %}
+{% endfor %}</div>
+</body>
+</html>
