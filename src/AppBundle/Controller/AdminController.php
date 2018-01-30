@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Entry;
 use AppBundle\Entity\User;
+use AppBundle\Form\EntryType;
+use AppBundle\Form\EditEntryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,7 +28,6 @@ class AdminController extends Controller {
 
         return $entries;
     }
-
     public function getUsers() {
 
         $repository = $this->getDoctrine()
@@ -73,7 +74,6 @@ class AdminController extends Controller {
             "entries"=>$this->getEntries(),
         ));
     }
-
     /**
      * @Route("/admin/entry/edit/{id}", name="edit")
      */
@@ -81,11 +81,7 @@ class AdminController extends Controller {
 
         $entry = $this->getEntry($id);
 
-        $form = $this->createFormBuilder($entry)
-            ->add('title', TextType::class, array('label' => "Titel: ", "required" => true))
-            ->add('content', TextareaType::class, array('label' => "Inhalt: ", "required" => true))
-            ->add('save', SubmitType::class, array('label' => 'Bearbeiten'))
-            ->getForm();
+        $form = $this->createForm(EditEntryType::class, $entry);
 
         $form->handleRequest($request);
 
@@ -123,7 +119,6 @@ class AdminController extends Controller {
             ),
         ));
     }
-
     /**
      * @Route("/admin/entry/new", name="new")
      */
@@ -131,19 +126,11 @@ class AdminController extends Controller {
 
         $entry = new Entry();
 
-        $form = $this->createFormBuilder($entry)
-            ->add('title', TextType::class, array('label' => "Titel: ", "required" => true))
-            ->add('author', TextType::class, array('label' => "Autor: ", "required" => true))
-            ->add('content', TextareaType::class, array('label' => "Inhalt: ", "required" => true))
-            ->add('save', SubmitType::class, array('label' => 'Bearbeiten'))
-            ->getForm();
-
+        $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entry->setTitle($form->getData()->getTitle());
-            $entry->setAuthor($form->getData()->getAuthor());
-            $entry->setContent($form->getData()->getContent());
+            $entry = $form->getData();
 
             $preview = $entry->getContent();
             $preview = strip_tags($preview);
@@ -166,7 +153,6 @@ class AdminController extends Controller {
             return $this->redirectToRoute('admin');
         }
 
-
         return $this->render('default/new.html.twig', array(
             "content"=>array(
                 "headline"=>"Beitrag bearbeiten",
@@ -175,7 +161,6 @@ class AdminController extends Controller {
             ),
         ));
     }
-
     /**
      * @Route("/admin/entry/delete/{id}", name="delete")
      */
@@ -187,7 +172,6 @@ class AdminController extends Controller {
 
         return new Response("Deleted successfully. <a href='/admin/entry'>Back</a>");
     }
-
     /**
      * @Route("/admin/pages/edit/{title}", name="editPages")
      */
@@ -221,9 +205,11 @@ class AdminController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $page->setName($form->getData()->getName());
-            $page->setContent($form->getData()->getContent());
+            $page = $form->getData();
 
+            $em = $this->getDoctrine()->getManager();
+            $em->merge($page);
+            $em->flush();
 
             return $this->redirectToRoute('admin');
         }
@@ -241,18 +227,14 @@ class AdminController extends Controller {
         ));
     }
     /**
-     * @Route("/admin/toggle/{user}")
+     * @Route("/admin/toggle/{user}", name="toggleUser")
      */
     public function toggleAdmin($user) {
         $repository = $this->getDoctrine()
             ->getRepository(User::class);
         $User = $repository->findOneBy(["username"=>$user]);
 
-        if($User->isSuperAdmin()) {
-            $User->setSuperAdmin(false);
-        } else if(!$User->isSuperAdmin()) {
-            $User->setSuperAdmin(true);
-        }
+        $User->setSuperAdmin(!$User->isSuperAdmin());
 
         $em = $this->getDoctrine()->getManager();
         $em->merge($User);

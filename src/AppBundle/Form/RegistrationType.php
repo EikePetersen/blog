@@ -19,19 +19,18 @@ class RegistrationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
- $builder->remove('email');
-        $builder->remove('username');
-        $builder->remove('plainPassword');
-
-        $builder->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'E-Mail: ', 'translation_domain' => 'FOSUserBundle'));
-        $builder->add('username', null, array('label' => 'Nutzername: ', 'translation_domain' => 'FOSUserBundle'));
-        $builder->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
-            'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
-            'options' => array('translation_domain' => 'FOSUserBundle'),
-            'first_options' => array('label' => 'Passwort: '),
-            'second_options' => array('label' => 'Passwort wiederholen: '),
-            'invalid_message' => 'Die Passwörter stimmen nicht überein!',
-        ));
+         $builder->remove('email');
+                $builder->remove('username');
+                $builder->remove('plainPassword');
+                $builder->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'E-Mail: ', 'translation_domain' => 'FOSUserBundle'));
+                $builder->add('username', null, array('label' => 'Nutzername: ', 'translation_domain' => 'FOSUserBundle'));
+                $builder->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
+                    'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'Passwort: '),
+                    'second_options' => array('label' => 'Passwort wiederholen: '),
+                    'invalid_message' => 'fos_user.password.mismatch',
+                ));
 
     }
 
