@@ -1,0 +1,25 @@
+<div class="topline"></div>
+<nav>
+    {% image '@AppBundle/Resources/public/images/logo.svg' %}
+        <img src="{{ asset_url }}" alt=""/>
+    {% endimage %}
+
+    <ul>
+        <li><a href="{{ path('home') }}">Home</a></li>
+        <li><a href="{{ path('admin') }}">Start</a></li>
+        <li><a href="{{ path('entries') }}">Beiträge</a></li>
+        <li><a>Statische Seiten</a>
+            <ul>
+                <li><a href="{{ path('editPages', {'title': "impressum"}) }}">Impressum bearbeiten</a></li>
+                <li><a href="{{ path('editPages', {'title': "about"}) }}">Über uns bearbeiten</a></li>
+
+            </ul>
+        </li>
+        <li>{#<a href="{{ path('user') }}">User</a> #}</li>
+        <li><a href="{{ path('fos_user_security_logout') }}">
+                Logout
+            </a></li>
+    </ul>
+
+
+</nav>
