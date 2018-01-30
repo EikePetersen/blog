@@ -86,6 +86,7 @@ fos_user:
     registration:
       form:
         type: AppBundle\Form\RegistrationType
+        validation_groups:  [reg]
     from_email:
         address: a@b.c
         sender_name: abc
